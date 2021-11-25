@@ -20,7 +20,6 @@ env:
 jobs:
   loadTest:
     name: Load Test
-    needs: build-and-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub Actions 
