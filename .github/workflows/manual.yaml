@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Sample LT
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: "issacnitineastustrial10"    # set this to your application's name.
+  LOAD_TEST_RESOURCE: "pgloadtest"
+  LOAD_TEST_RESOURCE_GROUP: "rg-loadtesting-service"
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '14.15.1'                # set this to the node version to use
+  LOCATION: "North Europe"
+  APPINSIGHTLOCATION: "North Europe"
+  DATABASEACCOUNTLOCATION: "northeurope"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel..
+jobs:
+  loadTest:
+    name: Load Test
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Actions 
+        uses: actions/checkout@v2
+          
+      - name: Login to Azure
+        uses: azure/login@v1
+        continue-on-error: false
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+  
+          
+      - name: 'Azure Load Testing'
+        uses: ./ltaction
+        with:
+          loadTestConfigFile: 'SampleApp.yaml'
+          loadTestResource: pgloadtest
+          resourceGroup: rg-loadtesting-service
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: loadTestResults
+          path: ${{ github.workspace }}/loadTest
