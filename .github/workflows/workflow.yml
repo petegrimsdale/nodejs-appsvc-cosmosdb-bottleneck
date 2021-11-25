@@ -72,7 +72,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: 'Azure Load Testing'
-        uses: azure/load-testing@v1
+        uses: petegrimsdale/load-testing@main
         with:
           loadTestConfigFile: 'SampleApp.yaml'
           loadTestResource: ${{ env.LOAD_TEST_RESOURCE }}
