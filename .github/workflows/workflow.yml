@@ -73,7 +73,7 @@ jobs:
   
           
       - name: 'Azure Load Testing'
-        uses: ./.github/actions/ltaction
+        uses: ltaction
         with:
           loadTestConfigFile: 'SampleApp.yaml'
           loadTestResource: ${{ env.LOAD_TEST_RESOURCE }}
