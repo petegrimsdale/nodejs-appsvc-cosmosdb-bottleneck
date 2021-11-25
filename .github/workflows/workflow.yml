@@ -78,7 +78,7 @@ jobs:
           path: .github/actions
           
       - name: 'Azure Load Testing'
-        uses: ./.github/actions@main
+        uses: ./.github/actions/load-testing
         with:
           loadTestConfigFile: 'SampleApp.yaml'
           loadTestResource: ${{ env.LOAD_TEST_RESOURCE }}
