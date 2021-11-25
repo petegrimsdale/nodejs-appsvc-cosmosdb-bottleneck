@@ -64,13 +64,6 @@ jobs:
     steps:
       - name: Checkout GitHub Actions 
         uses: actions/checkout@v2
-
-      - name: Checkout tools repo
-        uses: actions/checkout@v2
-        with:
-          repository: petegrimsdale/load-testing
-          token: ${{ secrets.GH_PAT }}
-          path: my-actions
           
       - name: Login to Azure
         uses: azure/login@v1
@@ -80,7 +73,7 @@ jobs:
   
           
       - name: 'Azure Load Testing'
-        uses: ./my-actions/load-testing@main
+        uses: ./actions
         with:
           loadTestConfigFile: 'SampleApp.yaml'
           loadTestResource: ${{ env.LOAD_TEST_RESOURCE }}
